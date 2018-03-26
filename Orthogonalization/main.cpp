@@ -10,8 +10,6 @@ using std::cout;
 using std::endl;
 using std::memcpy;
 
-double func(double vector[]);
-
 int main()
 {
 	int dim = 5;
@@ -58,8 +56,7 @@ int main()
 	cout << endl;
 	for (int j = 0; j < dim; ++j)
 		sum += pow(output_vectors[0][j], 2.0);
-	norm2[0] = sum;
-	//cout << "norm  " << 0 << " = " << norm2[0] << endl;
+	norm2[0] = sum;	//cout << "norm  " << 0 << " = " << norm2[0] << endl;
 
 	for (int i = 1; i < dim; ++i) 
 	{
@@ -70,9 +67,9 @@ int main()
 
 		sum = 0.0;
 		for (int j = 0; j < dim; ++j)
-			sum += pow(output_vectors[i - 1][j], 2.0);
-		norm2[i - 1] = sum;
-		cout << "norm  " << i - 1 << " = " << norm2[i - 1] << endl;
+			sum += pow(output_vectors[i - 1][j], 2.0);	//norma do kwadratu z wektora wejœciowego v_i
+		norm2[i - 1] = sum;	
+		//cout << "norm  " << i - 1 << " = " << norm2[i - 1] << endl;
 
 		scalar_product = new double[i]; 
 		for (int y = 0; y <= i; ++y) scalar_product[y] = 0;
@@ -81,15 +78,15 @@ int main()
 		{
 			sum2 = 0;
 			for (int h = 0; h < dim; ++h)
-				sum2 += (input_vectors[i][h] * output_vectors[g][h]);
+				sum2 += (input_vectors[i][h] * output_vectors[g][h]);	//iloczyn skalarny wektora wejœciowego u_i oraz wektora wyjœciowego v_i-1
 			scalar_product[g] = sum2;
 		}
-		cout << "scalar " << i << " = " << scalar_product[i - 1] << endl;
+		//cout << "scalar " << i << " = " << scalar_product[i - 1] << endl;
 
 		for (int j = 0; j < i; ++j)
 			for (int k = 0; k < dim; ++k)
-				elements[i - 1][j][k] = (scalar_product[j] / norm2[j]) * output_vectors[j][k];
-		
+				elements[i - 1][j][k] = (scalar_product[j] / norm2[j]) * output_vectors[j][k];	//obliczanie poszczgólnych sk³adników sumy
+																								//odejmowanych od wektora wejœciowego v_i
 		//cout << "elements nr " << i << ":	";
 		//for (int c = 0; c < i; ++c, cout << "	")
 		//	for (int d = 0; d < dim; ++d, cout << " ")
@@ -99,7 +96,7 @@ int main()
 		for (int p = 0; p < i; ++p) 
 		{
 			for (int r = 0; r < dim; ++r)
-				input_vectors[i][r] -= elements[i - 1][p][r];
+				input_vectors[i][r] -= elements[i - 1][p][r];	//odejmowanie poszczególnych sk³adników od wektora wejœciowego
 			for (int q = 0; q < dim; ++q)
 				output_vectors[i][q] = input_vectors[i][q];
 		}
